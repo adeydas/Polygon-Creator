@@ -89,13 +89,14 @@
                     mapData = mapData.replace(/\(/g, '');
                     mapData = mapData.replace(/\,/g, ' ');
                     mapData = mapData.replace(/\)/g, ', ');
-                    mapData = mapData.substr(0, mapData.length-2);
+                    //mapData = mapData.substr(0, mapData.length-2);
 
+					var arr = mapData.split(',');
 
                     var wktString = mapData;
 
                     wktString = 'POLYGON ( (' + wktString;
-                    wktString = wktString + ') )';
+                    wktString = wktString + arr[0] +  ') )' ;
 
                     $('#dataPanel').append(wktString);
 
