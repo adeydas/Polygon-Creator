@@ -14,21 +14,42 @@
 	<script type="text/javascript" src="polygon.min.js"></script>
 	
 	<script type="text/javascript">
+
+
+
+
 	$(function(){
-		  //create map
-		 var singapoerCenter=new google.maps.LatLng(1.37584, 103.829);
-		 var myOptions = {
-		  	zoom: 10,
-		  	center: singapoerCenter,
-		  	mapTypeId: google.maps.MapTypeId.ROADMAP
-		  }
-		 map = new google.maps.Map(document.getElementById('main-map'), myOptions);
-		 
+
+        var lat = 32.847240;
+        var lng = -96.980611;
+
+        $('#latitude').val(lat);
+        $('#longitude').val(lng);
+
+        //create map
+        var Center=new google.maps.LatLng(lat, lng);
+        var myOptions = {
+            zoom: 10,
+            center: Center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('main-map'), myOptions);
 		 var creator = new PolygonCreator(map);
 		 
 		 //reset
-		 $('#reset').click(function(){ 
-		 		creator.destroy();
+		 $('#reset').click(function(){
+
+             var newLat = $("#latitude").val();
+             var newLon = $("#longitude").val();
+             var newCenter = new google.maps.LatLng(newLat, newLon);
+             myOptions = {
+                 zoom: 10,
+                 center: newCenter,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+             }
+             map = new google.maps.Map(document.getElementById('main-map'), myOptions);
+
+             creator.destroy();
 		 		creator=null;
 		 		
 		 		creator=new PolygonCreator(map);
@@ -64,30 +85,13 @@
 	<div id="header">
 		<ul>
 			<li class="title">
-				Polygon Creator Class (For Google Map API v3)
+				Polygon Creator
 			</li>
-			<li>
-			    <a href="http://www.the-di-lab.com/?p=219">Document</a>
-			</li>
-			<li>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="pay">
-			<input type="hidden" name="cmd" value="_donations">
-			<input type="hidden" name="business" value="xuding.1986@yahoo.com.sg">
-			<input type="hidden" name="lc" value="US">
-			<input type="hidden" name="item_name" value="Polygon Creator">
-			<input type="hidden" name="no_note" value="0">
-			<input type="hidden" name="currency_code" value="USD">
-			<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-			<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-			<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-			</form>
-			</li>
-	
 
-			
 		</ul>
+        <div id="la">&nbsp;</div>
 	   <p>
-		<span class="instruction">Demo Instruction:</span>
+		<span class="instruction">Usage:</span>
 		Left click on the map to create markers, when last marker meets first marker, it will form a polygon.
 		Right click on the polygon to change its color.
 		</p>
@@ -95,7 +99,9 @@
 	<div id="main-map">
 	</div>
 	<div id="side">
-		<input id="reset" value="Reset" type="button" class="navi"/>
+        Latitude: <input id="latitude" value="" type="text" class="navi"/>
+        Longitude: <input id="longitude" value="" type="text" class="navi"/>
+		<input id="reset" value="Re-focus" type="button" class="navi"/>
 		<input id="showData"  value="Show Paths (class function) " type="button" class="navi"/>
 		<input id="showColor"  value="Show Color (class function) " type="button" class="navi"/>
 		<div   id="dataPanel">
