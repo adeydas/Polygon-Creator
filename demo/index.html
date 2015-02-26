@@ -81,7 +81,7 @@
 		 		}
 		 });
 
-        //show geojson
+        //show wkt
         $('#showWkt').click(function () {
                 $('#dataPanel').empty();
                 if(null==creator.showData()){
@@ -91,13 +91,29 @@
 
                     mapData = $.trim(mapData);
                     mapData = mapData.replace(/\(/g, '');
-                    mapData = mapData.replace(/\,/g, ' ');
-                    mapData = mapData.replace(/\)/g, ', ');
+
+					var newMapData = mapData.split(')');
+					var resultMapData = '';
+					$.each(newMapData, function(index, value) {
+						if (value.contains(',')) {
+
+							var eachData = value.split(',');
+							var latR = eachData[0];
+							var lonR = eachData[1];
+
+							resultMapData = resultMapData + ' ' + lonR + ' ' + latR + ', ';
+						}
+					});
+
+					//$('#dataPanel').append(resultMapData);
+
+                    //mapData = mapData.replace(/\,/g, ' ');
+                    //mapData = mapData.replace(/\)/g, ', ');
                     //mapData = mapData.substr(0, mapData.length-2);
 
-					var arr = mapData.split(',');
+					var arr = resultMapData.split(',');
 
-                    var wktString = mapData;
+                    var wktString = resultMapData;
 
                     wktString = 'POLYGON ( (' + wktString;
                     wktString = wktString + arr[0] +  ') )' ;
