@@ -95,7 +95,7 @@
 					var newMapData = mapData.split(')');
 					var resultMapData = '';
 					$.each(newMapData, function(index, value) {
-						if (value.contains(',')) {
+						if (value.indexOf(',') >= 0) {
 
 							var eachData = value.split(',');
 							var latR = eachData[0];
